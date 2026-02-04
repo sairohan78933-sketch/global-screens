@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Expired - SmartHire Admin</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      :root {
+        --sidebar-bg: #2c3e50;
+        --sidebar-text: #ecf0f1;
+        --sidebar-active: #3498db;
+        --sidebar-hover: #34495e;
+        --header-bg: #ffffff;
+        --main-bg: #f4f6f9;
+        --card-bg: #ffffff;
+        --text-primary: #2c3e50;
+        --text-secondary: #7f8c8d;
+        --border-color: #e1e4e8;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        --status-warning: #f39c12;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background-color: var(--main-bg);
+        color: var(--text-primary);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .timeout-card {
+        background-color: var(--card-bg);
+        width: 100%;
+        max-width: 420px;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        animation: fadeIn 0.5s ease;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+      .brand-section {
+        margin-bottom: 25px;
+      }
+
+      .brand-logo {
+        font-size: 1.8rem;
+        color: var(--sidebar-active);
+        font-weight: bold;
+      }
+
+      .icon-container {
+        font-size: 4rem;
+        color: var(--status-warning);
+        margin-bottom: 20px;
+      }
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+      }
+
+      .message {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      .timestamp {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        background-color: #f8f9fa;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        display: inline-block;
+        border: 1px solid var(--border-color);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background-color: var(--sidebar-active);
+        color: white;
+        border: none;
+      }
+      .btn-primary:hover { background-color: #2980b9; }
+
+      .btn-outline {
+        background-color: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+      }
+      .btn-outline:hover {
+        background-color: #f8f9fa;
+        color: var(--text-primary);
+      }
+
+      .redirect-notice {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timeout-card">
+      <div class="brand-section">
+        <div class="brand-logo"><i class="fa-solid fa-briefcase"></i> SmartHire</div>
+      </div>
+
+      <div class="icon-container">
+        <i class="fa-solid fa-hourglass-end"></i>
+      </div>
+
+      <h2 class="title">Session Expired</h2>
+      <p class="message">Your session has expired due to inactivity.</p>
+      
+      <div class="timestamp">
+        Last activity: <span id="lastActiveTime">--:--</span>
+      </div>
+
+      <button class="btn btn-primary" onclick="redirectToLogin()">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i> Log In Again
+      </button>
+      
+      <button class="btn btn-outline" onclick="redirectToLogin()">
+        <i class="fa-solid fa-power-off"></i> Logout
+      </button>
+
+      <div class="redirect-notice">
+        Redirecting to login in <span id="countdown">30</span>s...
+      </div>
+    </div>
+
+    <script>
+      // Simulate Last Activity Timestamp (15 minutes ago)
+      const now = new Date();
+      const lastActive = new Date(now.getTime() - 15 * 60000);
+      document.getElementById('lastActiveTime').textContent = lastActive.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Token Invalidation Simulation
+      sessionStorage.clear();
+      localStorage.removeItem('authToken');
+
+      // Auto Redirect Logic
+      let timeLeft = 30; // 30 seconds countdown before auto-redirect
+      const countdownEl = document.getElementById('countdown');
+      
+      const timer = setInterval(() => {
+        timeLeft--;
+        countdownEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          redirectToLogin();
+        }
+      }, 1000);
+
+      function redirectToLogin() {
+        window.location.href = 'login.html';
+      }
+    </script>
+  </body>
+</html>

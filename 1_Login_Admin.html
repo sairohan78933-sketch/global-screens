@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SmartHire Admin</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      :root {
+        --sidebar-bg: #2c3e50;
+        --sidebar-text: #ecf0f1;
+        --sidebar-active: #3498db;
+        --sidebar-hover: #34495e;
+        --header-bg: #ffffff;
+        --main-bg: #f4f6f9;
+        --card-bg: #ffffff;
+        --text-primary: #2c3e50;
+        --text-secondary: #7f8c8d;
+        --border-color: #e1e4e8;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        --status-danger: #e74c3c;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background-color: var(--main-bg);
+        color: var(--text-primary);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-card {
+        background-color: var(--card-bg);
+        width: 100%;
+        max-width: 420px;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+      .brand-section {
+        text-align: center;
+        margin-bottom: 35px;
+      }
+
+      .brand-logo {
+        font-size: 3rem;
+        color: var(--sidebar-active);
+        margin-bottom: 10px;
+      }
+
+      .brand-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--sidebar-bg);
+      }
+
+      .brand-subtitle {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-top: 5px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--sidebar-active);
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 38px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        font-size: 0.9rem;
+      }
+
+      .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+        color: var(--text-secondary);
+      }
+
+      .forgot-password {
+        color: var(--sidebar-active);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .forgot-password:hover { text-decoration: underline; }
+
+      .btn-login {
+        width: 100%;
+        padding: 14px;
+        background-color: var(--sidebar-active);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s, opacity 0.2s;
+      }
+
+      .btn-login:hover { background-color: #2980b9; }
+      .btn-login:disabled {
+        background-color: #95a5a6;
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      .alert-message {
+        background-color: #fdedec;
+        color: var(--status-danger);
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #fadbd8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-card" id="loginCard">
+      <div class="brand-section">
+        <div class="brand-logo"><i class="fa-solid fa-briefcase"></i></div>
+        <h2 class="brand-title">SmartHire</h2>
+        <p class="brand-subtitle">Admin Portal Login</p>
+      </div>
+
+      <div class="alert-message" id="authError">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="errorText">Invalid username or password</span>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Username / Email</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter registered email or username" required oninput="validateForm()">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter your password" required minlength="8" oninput="validateForm()">
+          <i class="fa-regular fa-eye password-toggle" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+        </div>
+
+        <div class="form-actions">
+          <label class="remember-me">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn-login" id="loginBtn" disabled>Login</button>
+      </form>
+    </div>
+
+    <script>
+      function validateForm() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const btn = document.getElementById('loginBtn');
+        btn.disabled = !(username.length > 0 && password.length >= 8);
+      }
+
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const icon = document.getElementById('togglePassword');
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+          passwordInput.type = 'password';
+          icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+      }
+
+      let failedAttempts = 0;
+
+      function handleLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorBox = document.getElementById('authError');
+        const errorText = document.getElementById('errorText');
+
+        // Simple simulation logic
+        if (username === 'admin' && password === 'password123') {
+          // Success
+          window.location.href = 'index.html';
+        } else {
+          // Failure
+          failedAttempts++;
+          errorBox.style.display = 'flex';
+          
+          if (failedAttempts >= 3) {
+            // Account Lock Trigger
+            errorText.innerText = "Account locked due to multiple failed attempts.";
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('username').disabled = true;
+            document.getElementById('password').disabled = true;
+          } else {
+            errorText.innerText = "Invalid username or password";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
