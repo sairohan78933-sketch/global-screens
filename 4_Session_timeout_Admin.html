@@ -1,198 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Session Expired - SmartHire Admin</title>
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire - Session Expired</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --sidebar-bg: #2c3e50;
-        --sidebar-text: #ecf0f1;
-        --sidebar-active: #3498db;
-        --sidebar-hover: #34495e;
-        --header-bg: #ffffff;
-        --main-bg: #f4f6f9;
-        --card-bg: #ffffff;
-        --text-primary: #2c3e50;
-        --text-secondary: #7f8c8d;
-        --border-color: #e1e4e8;
-        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        --status-warning: #f39c12;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            background-color: #f3f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-        background-color: var(--main-bg);
-        color: var(--text-primary);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        .card {
+            background: #ffffff;
+            width: 400px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
 
-      .timeout-card {
-        background-color: var(--card-bg);
-        width: 100%;
-        max-width: 420px;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-        animation: fadeIn 0.5s ease;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+        /* Brand Header */
+        .header-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .logo-icon {
+            font-size: 26px;
+            color: #4a90e2;
+        }
 
-      .brand-section {
-        margin-bottom: 25px;
-      }
+        .brand-name {
+            font-size: 26px;
+            color: #4a90e2;
+            font-weight: 500;
+        }
 
-      .brand-logo {
-        font-size: 1.8rem;
-        color: var(--sidebar-active);
-        font-weight: bold;
-      }
+        /* Hourglass Icon */
+        .status-icon {
+            font-size: 65px;
+            color: #f39c12; /* Golden orange color from image */
+            margin-bottom: 20px;
+        }
 
-      .icon-container {
-        font-size: 4rem;
-        color: var(--status-warning);
-        margin-bottom: 20px;
-      }
+        h1 {
+            font-size: 22px;
+            color: #34495e;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
 
-      .title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: var(--text-primary);
-      }
+        .description {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
 
-      .message {
-        color: var(--text-secondary);
-        font-size: 1rem;
-        margin-bottom: 5px;
-      }
+        /* Activity Badge */
+        .activity-badge {
+            display: inline-block;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #95a5a6;
+            margin-bottom: 30px;
+        }
 
-      .timestamp {
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        background-color: #f8f9fa;
-        padding: 5px 10px;
-        border-radius: 15px;
-        margin-bottom: 30px;
-        display: inline-block;
-        border: 1px solid var(--border-color);
-      }
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
 
-      .btn {
-        width: 100%;
-        padding: 12px;
-        border-radius: 5px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-      }
+        .btn-login {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            margin-bottom: 12px;
+        }
 
-      .btn-primary {
-        background-color: var(--sidebar-active);
-        color: white;
-        border: none;
-      }
-      .btn-primary:hover { background-color: #2980b9; }
+        .btn-logout {
+            background-color: white;
+            color: #95a5a6;
+            border: 1px solid #e9ecef;
+            margin-bottom: 25px;
+        }
 
-      .btn-outline {
-        background-color: transparent;
-        color: var(--text-secondary);
-        border: 1px solid var(--border-color);
-      }
-      .btn-outline:hover {
-        background-color: #f8f9fa;
-        color: var(--text-primary);
-      }
+        .btn:hover {
+            opacity: 0.9;
+        }
 
-      .redirect-notice {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        margin-top: 10px;
-      }
+        /* Redirect Text */
+        .redirect-text {
+            font-size: 13px;
+            color: #bdc3c7;
+        }
     </style>
-  </head>
-  <body>
-    <div class="timeout-card">
-      <div class="brand-section">
-        <div class="brand-logo"><i class="fa-solid fa-briefcase"></i> SmartHire</div>
-      </div>
+</head>
+<body>
 
-      <div class="icon-container">
-        <i class="fa-solid fa-hourglass-end"></i>
-      </div>
-
-      <h2 class="title">Session Expired</h2>
-      <p class="message">Your session has expired due to inactivity.</p>
-      
-      <div class="timestamp">
-        Last activity: <span id="lastActiveTime">--:--</span>
-      </div>
-
-      <button class="btn btn-primary" onclick="redirectToLogin()">
-        <i class="fa-solid fa-arrow-right-to-bracket"></i> Log In Again
-      </button>
-      
-      <button class="btn btn-outline" onclick="redirectToLogin()">
-        <i class="fa-solid fa-power-off"></i> Logout
-      </button>
-
-      <div class="redirect-notice">
-        Redirecting to login in <span id="countdown">30</span>s...
-      </div>
+<div class="card">
+    <div class="header-logo">
+        <i class="fa-solid fa-briefcase logo-icon"></i>
+        <span class="brand-name">SmartHire</span>
     </div>
 
-    <script>
-      // Simulate Last Activity Timestamp (15 minutes ago)
-      const now = new Date();
-      const lastActive = new Date(now.getTime() - 15 * 60000);
-      document.getElementById('lastActiveTime').textContent = lastActive.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    <div class="status-icon">
+        <i class="fa-solid fa-hourglass-half"></i>
+    </div>
 
-      // Token Invalidation Simulation
-      sessionStorage.clear();
-      localStorage.removeItem('authToken');
+    <h1>Session Expired</h1>
+    <p class="description">Your session has expired due to inactivity.</p>
+    
+    <div class="activity-badge">
+        Last activity: 06:28 AM
+    </div>
 
-      // Auto Redirect Logic
-      let timeLeft = 30; // 30 seconds countdown before auto-redirect
-      const countdownEl = document.getElementById('countdown');
-      
-      const timer = setInterval(() => {
-        timeLeft--;
-        countdownEl.textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          redirectToLogin();
+    <a href="#" class="btn btn-login">
+        <i class="fa-solid fa-right-to-bracket"></i> Log In Again
+    </a>
+
+    <a href="#" class="btn btn-logout">
+        <i class="fa-solid fa-power-off"></i> Logout
+    </a>
+
+    <p class="redirect-text">Redirecting to login in <span id="countdown">30</span>s...</p>
+</div>
+
+<script>
+    // Simple countdown logic for the redirect text
+    let seconds = 30;
+    const countdownEl = document.getElementById('countdown');
+
+    const timer = setInterval(() => {
+        seconds--;
+        countdownEl.textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(timer);
+            // Logic to actually redirect would go here:
+            // window.location.href = "login.html";
         }
-      }, 1000);
+    }, 1000);
+</script>
 
-      function redirectToLogin() {
-        window.location.href = 'login.html';
-      }
-    </script>
-  </body>
+</body>
 </html>
