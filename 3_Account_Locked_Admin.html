@@ -1,204 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account Locked - SmartHire Admin</title>
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire - Account Locked</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --sidebar-bg: #2c3e50;
-        --sidebar-text: #ecf0f1;
-        --sidebar-active: #3498db;
-        --sidebar-hover: #34495e;
-        --header-bg: #ffffff;
-        --main-bg: #f4f6f9;
-        --card-bg: #ffffff;
-        --text-primary: #2c3e50;
-        --text-secondary: #7f8c8d;
-        --border-color: #e1e4e8;
-        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        --status-danger: #e74c3c;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            background-color: #f3f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-        background-color: var(--main-bg);
-        color: var(--text-primary);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        .card {
+            background: #ffffff;
+            width: 400px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
 
-      .login-card {
-        background-color: var(--card-bg);
-        width: 100%;
-        max-width: 420px;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-        animation: fadeIn 0.5s ease;
-        text-align: center;
-      }
+        .header-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
 
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .logo-icon {
+            font-size: 28px;
+            color: #4a90e2;
+        }
 
-      .brand-section {
-        margin-bottom: 25px;
-      }
+        .brand-name {
+            font-size: 24px;
+            color: #4a90e2;
+            font-weight: 500;
+        }
 
-      .brand-logo {
-        font-size: 2rem;
-        color: var(--sidebar-active);
-        margin-bottom: 5px;
-      }
+        .lock-status-icon {
+            font-size: 60px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
 
-      .lock-icon-container {
-        font-size: 4rem;
-        color: var(--status-danger);
-        margin: 20px 0;
-        animation: pulse 2s infinite;
-      }
+        h1 {
+            font-size: 22px;
+            color: #34495e;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
 
-      @keyframes pulse {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.05); opacity: 0.8; }
-        100% { transform: scale(1); opacity: 1; }
-      }
+        .alert-box {
+            background-color: #fdf2f2;
+            border: 1px solid #f9d7d7;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
 
-      .info-banner {
-        background-color: #fdedec;
-        color: var(--status-danger);
-        border: 1px solid #fadbd8;
-        padding: 15px;
-        border-radius: 5px;
-        font-size: 0.95rem;
-        margin-bottom: 25px;
-        line-height: 1.5;
-      }
+        .alert-text {
+            font-size: 13px;
+            color: #c0392b;
+            line-height: 1.6;
+        }
 
-      .timer-display {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 10px;
-        font-variant-numeric: tabular-nums;
-      }
+        .timer-display {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
 
-      .timer-label {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        margin-bottom: 30px;
-      }
+        .timer-label {
+            font-size: 13px;
+            color: #95a5a6;
+            margin-bottom: 30px;
+        }
 
-      .btn-retry {
-        width: 100%;
-        padding: 14px;
-        background-color: var(--sidebar-active);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s, opacity 0.2s;
-      }
+        .retry-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #bdc3c7; /* Initial disabled gray */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: not-allowed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
 
-      .btn-retry:hover { background-color: #2980b9; }
-      .btn-retry:disabled {
-        background-color: #95a5a6;
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
+        /* Active state for when timer ends */
+        .retry-btn.active {
+            background-color: #4a90e2;
+            cursor: pointer;
+        }
 
-      .links-section {
-        margin-top: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        font-size: 0.9rem;
-      }
+        .forgot-link {
+            text-decoration: none;
+            color: #95a5a6;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
 
-      .secondary-link {
-        color: var(--text-secondary);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .secondary-link:hover { color: var(--sidebar-active); }
-      
-      .support-link {
-        color: var(--sidebar-active);
-        font-weight: 600;
-        text-decoration: none;
-      }
-      .support-link:hover { text-decoration: underline; }
+        .forgot-link:hover {
+            color: #7f8c8d;
+        }
     </style>
-  </head>
-  <body>
-    <div class="login-card">
-      <div class="brand-section">
-        <div class="brand-logo"><i class="fa-solid fa-briefcase"></i> SmartHire</div>
-      </div>
+</head>
+<body>
 
-      <div class="lock-icon-container">
-        <i class="fa-solid fa-user-lock"></i>
-      </div>
-
-      <h2 style="margin-bottom: 15px;">Account Locked</h2>
-
-      <div class="info-banner">
-        Your account is locked due to exceeded login attempts. Please wait until the timer expires to try again.
-      </div>
-
-      <div class="timer-display" id="timer">02:00</div>
-      <div class="timer-label">Time remaining until unlock</div>
-
-      <button class="btn-retry" id="retryBtn" disabled onclick="window.location.href='login.html'">
-        <i class="fa-solid fa-rotate-right"></i> Retry Login
-      </button>
-
-      <div class="links-section">
-        <a href="forgot_password.html" class="secondary-link">Forgot Password?</a>
-        <div>
-            Need help? <a href="#" class="support-link">Contact Admin Support</a>
-        </div>
-      </div>
+<div class="card">
+    <div class="header-logo">
+        <i class="fa-solid fa-briefcase logo-icon"></i>
+        <span class="brand-name">SmartHire</span>
     </div>
 
-    <script>
-      // Set lock duration (e.g., 2 minutes)
-      let timeLeft = 120; 
-      const timerDisplay = document.getElementById('timer');
-      const retryBtn = document.getElementById('retryBtn');
+    <div class="lock-status-icon">
+        <i class="fa-solid fa-user-lock"></i>
+    </div>
 
-      const countdown = setInterval(() => {
-        const minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+    <h1>Account Locked</h1>
 
-        timerDisplay.textContent = `0${minutes}:${seconds}`;
-        timeLeft--;
+    <div class="alert-box">
+        <p class="alert-text">
+            Your account is locked due to exceeded login attempts. Please wait until the timer expires to try again.
+        </p>
+    </div>
 
-        if (timeLeft < 0) {
-          clearInterval(countdown);
-          timerDisplay.textContent = "00:00";
-          timerDisplay.style.color = "var(--status-success)"; // Optional visual cue
-          retryBtn.disabled = false;
-          retryBtn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Retry Login';
+    <div class="timer-display" id="timer">02:00</div>
+    <p class="timer-label">Time remaining until unlock</p>
+
+    <button class="retry-btn" id="retryBtn" disabled>
+        <i class="fa-solid fa-rotate"></i> Retry Login
+    </button>
+
+    <a href="#" class="forgot-link">Forgot Password?</a>
+</div>
+
+<script>
+    const timerDisplay = document.getElementById('timer');
+    const retryBtn = document.getElementById('retryBtn');
+    
+    let timeInSeconds = 120; // 2 minutes
+
+    const countdown = setInterval(() => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+
+        // Formatting: Add leading zero if less than 10
+        timerDisplay.textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeInSeconds <= 0) {
+            clearInterval(countdown);
+            enableButton();
+        } else {
+            timeInSeconds--;
         }
-      }, 1000);
-    </script>
-  </body>
+    }, 1000);
+
+    function enableButton() {
+        retryBtn.disabled = false;
+        retryBtn.classList.add('active');
+        timerDisplay.style.color = "#27ae60"; // Change timer to green when done
+    }
+</script>
+
+</body>
 </html>
