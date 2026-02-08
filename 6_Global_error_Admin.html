@@ -1,221 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Access Denied / Error - SmartHire Admin</title>
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire - Access Denied</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --sidebar-bg: #2c3e50;
-        --sidebar-text: #ecf0f1;
-        --sidebar-active: #3498db;
-        --sidebar-hover: #34495e;
-        --header-bg: #ffffff;
-        --main-bg: #f4f6f9;
-        --card-bg: #ffffff;
-        --text-primary: #2c3e50;
-        --text-secondary: #7f8c8d;
-        --border-color: #e1e4e8;
-        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        --status-danger: #e74c3c;
-        --status-warning: #f39c12;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            background-color: #f3f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-        background-color: var(--main-bg);
-        color: var(--text-primary);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        .error-card {
+            background: #ffffff;
+            width: 440px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
 
-      .error-card {
-        background-color: var(--card-bg);
-        width: 100%;
-        max-width: 480px;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-        animation: fadeIn 0.5s ease;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+        /* Brand Logo */
+        .logo-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
 
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .logo-icon {
+            font-size: 24px;
+            color: #4a90e2;
+        }
 
-      .brand-section { margin-bottom: 25px; }
-      .brand-logo { font-size: 1.8rem; color: var(--sidebar-active); font-weight: bold; }
+        .brand-text {
+            font-size: 26px;
+            color: #4a90e2;
+            font-weight: 500;
+        }
 
-      .icon-container {
-        font-size: 4rem;
-        color: var(--status-danger);
-        margin-bottom: 20px;
-      }
+        /* Error Icon */
+        .ban-icon {
+            font-size: 60px;
+            color: #e74c3c;
+            margin-bottom: 25px;
+        }
 
-      .error-title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: var(--text-primary);
-      }
+        h1 {
+            font-size: 22px;
+            color: #34495e;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
 
-      .error-desc {
-        color: var(--text-secondary);
-        font-size: 1rem;
-        margin-bottom: 20px;
-        line-height: 1.5;
-      }
+        .message {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
 
-      .context-info {
-        background-color: #f8f9fa;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        padding: 10px 15px;
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        margin-bottom: 30px;
-        width: 100%;
-        text-align: left;
-      }
-      
-      .context-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
-      .context-row:last-child { margin-bottom: 0; }
-      .context-label { font-weight: 600; }
-      .context-value { font-family: monospace; }
+        /* Error Details Box */
+        .details-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
 
-      .btn {
-        width: 100%;
-        padding: 12px;
-        border-radius: 5px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-      }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
 
-      .btn-primary { background-color: var(--sidebar-active); color: white; border: none; }
-      .btn-primary:hover { background-color: #2980b9; }
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
 
-      .btn-outline { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); }
-      .btn-outline:hover { background-color: #f8f9fa; color: var(--text-primary); }
+        .detail-label {
+            color: #95a5a6;
+            font-weight: 600;
+        }
 
-      .support-link {
-        margin-top: 15px;
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-      }
-      .support-link a { color: var(--sidebar-active); text-decoration: none; font-weight: 600; }
-      .support-link a:hover { text-decoration: underline; }
+        .detail-value {
+            color: #bdc3c7;
+            font-family: monospace;
+        }
+
+        /* Action Buttons */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+        }
+
+        .btn-outline {
+            background-color: white;
+            color: #95a5a6;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Support Link */
+        .support-footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #95a5a6;
+        }
+
+        .support-link {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+        }
     </style>
-  </head>
-  <body>
-    <div class="error-card">
-      <div class="brand-section">
-        <div class="brand-logo"><i class="fa-solid fa-briefcase"></i> SmartHire</div>
-      </div>
+</head>
+<body>
 
-      <div class="icon-container" id="errorIcon">
-        <i class="fa-solid fa-ban"></i>
-      </div>
-
-      <h2 class="error-title" id="errorTitle">Access Denied</h2>
-      <p class="error-desc" id="errorDesc">You do not have permission to access this page. Please contact your administrator if you believe this is a mistake.</p>
-      
-      <div class="context-info">
-        <div class="context-row">
-            <span class="context-label">Error Code:</span>
-            <span class="context-value" id="errorCode">403</span>
-        </div>
-        <div class="context-row">
-            <span class="context-label">Trace ID:</span>
-            <span class="context-value" id="traceId">req_a1b2c3d4</span>
-        </div>
-      </div>
-
-      <div id="authButtons" style="width: 100%;">
-          <button class="btn btn-primary" onclick="window.location.href='index.html'">
-            <i class="fa-solid fa-house"></i> Go to Dashboard
-          </button>
-      </div>
-
-      <div id="guestButtons" style="width: 100%; display: none;">
-          <button class="btn btn-primary" onclick="window.location.href='login.html'">
-            <i class="fa-solid fa-right-to-bracket"></i> Log In
-          </button>
-      </div>
-
-      <button class="btn btn-outline" onclick="window.history.back()">
-        <i class="fa-solid fa-arrow-left"></i> Go Back
-      </button>
-
-      <div class="support-link">
-        Need assistance? <a href="mailto:support@smarthire.com">Contact Support</a>
-      </div>
+<div class="error-card">
+    <div class="logo-header">
+        <i class="fa-solid fa-briefcase logo-icon"></i>
+        <span class="brand-text">SmartHire</span>
     </div>
 
-    <script>
-      // Simulation: Toggle between 403 (Auth) and 500 (System Error)
-      // For demo purposes, we'll stick to 403 as default, but logic allows switching.
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      const type = urlParams.get('type') || '403'; // Default to 403
-      const isAuthenticated = true; // Simulate auth state
+    <div class="ban-icon">
+        <i class="fa-solid fa-ban"></i>
+    </div>
 
-      const titleEl = document.getElementById('errorTitle');
-      const descEl = document.getElementById('errorDesc');
-      const codeEl = document.getElementById('errorCode');
-      const iconEl = document.getElementById('errorIcon');
+    <h1>Access Denied</h1>
+    <p class="message">You do not have permission to access this application.</p>
 
-      if (type === '500') {
-          titleEl.innerText = "Something Went Wrong";
-          descEl.innerText = "An unexpected error occurred while processing your request. Our team has been notified.";
-          codeEl.innerText = "500";
-          iconEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
-          iconEl.style.color = "var(--status-warning)";
-      } else {
-          // 403 Default
-          titleEl.innerText = "Access Denied";
-          descEl.innerText = "You do not have permission to access this resource.";
-          codeEl.innerText = "403";
-          iconEl.innerHTML = '<i class="fa-solid fa-ban"></i>';
-          iconEl.style.color = "var(--status-danger)";
-      }
+    <div class="details-box">
+        <div class="detail-row">
+            <span class="detail-label">Error Code:</span>
+            <span class="detail-value">403</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Trace ID:</span>
+            <span class="detail-value">req_sjetnhha0</span>
+        </div>
+    </div>
 
-      // Generate random Trace ID
-      document.getElementById('traceId').innerText = 'req_' + Math.random().toString(36).substr(2, 9);
+    <a href="#" class="btn btn-primary">
+        <i class="fa-solid fa-house"></i> Go to Dashboard
+    </a>
 
-      // Role-Based Visibility
-      if (isAuthenticated) {
-          document.getElementById('authButtons').style.display = 'block';
-          document.getElementById('guestButtons').style.display = 'none';
-      } else {
-          document.getElementById('authButtons').style.display = 'none';
-          document.getElementById('guestButtons').style.display = 'block';
-      }
+    <a href="#" class="btn btn-outline">
+        <i class="fa-solid fa-arrow-left"></i> Go Back
+    </a>
 
-      // Access Logging Simulation
-      console.log(`[Security Log] Access attempt blocked. Code: ${codeEl.innerText}, Trace: ${document.getElementById('traceId').innerText}, UserAuth: ${isAuthenticated}`);
-    </script>
-  </body>
+    <div class="support-footer">
+        Need assistance? <a href="#" class="support-link">Contact Support</a>
+    </div>
+</div>
+
+</body>
 </html>
